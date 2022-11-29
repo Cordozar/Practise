@@ -6,9 +6,9 @@ function start() {
   do {
     numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
   } while (
-    numberOfFilms === '' ||
-    numberOfFilms === null ||
-    isNaN(numberOfFilms)
+    !numberOfFilms ||
+    isNaN(numberOfFilms) ||
+    numberOfFilms.includes(' ')
   );
 }
 
@@ -43,17 +43,13 @@ function rememberMyFilms() {
     do {
       watchedFilm = prompt('Один из последних просмотренных фильмов?', '');
     } while (
-      watchedFilm === null ||
-      watchedFilm === '' ||
-      watchedFilm.length > 50
+      !watchedFilm ||
+      watchedFilm.length > 50 ||
+      watchedFilm.trim().length === 0
     );
     do {
       assessmentFilm = prompt('На сколько оцените его?');
-    } while (
-      assessmentFilm === null ||
-      isNaN(assessmentFilm) ||
-      assessmentFilm === ''
-    );
+    } while (!assessmentFilm || isNaN(assessmentFilm));
     personalMovieDB.movies[watchedFilm] = +assessmentFilm;
   }
 }
@@ -72,8 +68,8 @@ function writeYourGenres() {
     do {
       favoriteGenre = prompt(`Ваш любимый жанр под номером ${i}`, '');
     } while (
-      favoriteGenre === null ||
-      favoriteGenre === '' ||
+      !favoriteGenre ||
+      favoriteGenre.trim().length === 0 ||
       !isNaN(favoriteGenre)
     );
     personalMovieDB.genres[i - 1] = favoriteGenre;
